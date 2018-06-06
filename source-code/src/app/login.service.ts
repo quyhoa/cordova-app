@@ -18,35 +18,40 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   loginPolan (data:Login) {
-    // let data = {email:"duc4@runsystem.net",
-    //   password:"123321",
-    //   os_type:1}
     return this.http.post(this.urlLoginPolan, data, httpOptions)
     .pipe(
       map(data => data),
       tap(data => data),
-      // catchError(this.handleError<any>('Thing tin login'))
+      // catchError(this.handleError())
     );
   }
 
+  // protected handleError (error: Response | any) {
+  //     // In a real world app, you might use a remote logging infrastructure
+  //     let errMsg: any;
+  //     if (error instanceof Response) {
+  //       const body = error.json() || '';
+  //       const err = body || JSON.stringify(body);
+  //       errMsg = err;
+  //     } else {
+  //       errMsg = error;
+  //     }
+  //     console.error(errMsg);
+  //     // return Observable.throw(errMsg);
+  //     return errMsg;
+  //   }
 
-     /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-    private handleError<T> (operation = 'operation', result?: T) {
-      return (error: any): Observable<T> => {
-   
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-   alert(`${operation} khong chinh xac`);
-        // TODO: better job of transforming error for user consumption
-        // this.log(`${operation} failed: ${error.message}`);
-   
-        // Let the app keep running by returning an empty result.
-        return of(result as T);
-      };
-    }
+
+   //   /**
+   // * Handle Http operation that failed.
+   // * Let the app continue.
+   // * @param operation - name of the operation that failed
+   // * @param result - optional value to return as the observable result
+   // */
+    // private handleError (operation = 'operation') {
+    //   return (error: any) => error;
+    //   // return (error: any): Observable<any> => {
+    //   //   return error;
+    //   // };
+    // }
 }

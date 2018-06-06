@@ -18,28 +18,27 @@ export class LoginComponent implements OnInit {
   onSubmit(formLogin): void {
     const body = formLogin.value;
     this.loginService.loginPolan(body).subscribe(
-      data => {
-        if(data.code == 200){
-          let token = data.data.token;
-          localStorage.setItem('token',token);
-          this.router.navigate(['dashboard']);
-        }
-      },
-      error =>{
-
-        console.log(error.error.data);
-      }
-      );
+      data => this.readData(data),
+      error => console.log('oops', error.error.data)
+    );
   }
 
   constructor(
     private loginService: LoginService,
     private localtion: Location,
     private router: Router) {
-    // this.loginService.loginPolan().subscribe(data => console.log(data));
   }
 
   ngOnInit() {
+  }
+
+  private readData(data){
+    if(data.code == 200){
+      let token = data.data.token;
+      localStorage.setItem('token',token);
+      this.router.navigate(['dashboard']);
+    }
+    
   }
 
 
