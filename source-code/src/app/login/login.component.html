@@ -1,0 +1,18 @@
+<div class="container">
+<form (ngSubmit)="onSubmit(formLogin)" #formLogin="ngForm">
+<div class="form-group">
+  <input [ngModel]="os_type" name="os_type" type="hidden">
+  <input [ngModel]="email" #txtEmail="ngModel" name="email" placeholder="Mail address" class="form-control" required>
+  <p *ngIf="txtEmail.touched && txtEmail.errors?.required">
+    Email is not empty
+  </p>
+</div>
+<div class="form-group">
+  <input [ngModel]="password" #txtPassword="ngModel" name="password" placeholder="Password" type="password" class="form-control" required>
+  <p *ngIf="txtPassword.touched && txtPassword.errors?.required">
+    Password is not empty
+  </p>
+</div>
+  <button class="btn btn-success" [disabled]="formLogin.invalid">Submit</button>
+</form>
+</div>

@@ -10,6 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { DasboardComponent } from './dasboard/dasboard.component';
 
 import { HttpClientModule }    from '@angular/common/http';
+import { ScansComponent } from './scans/scans.component';
+import { LoginComponent } from './login/login.component';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService }  from './in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -17,13 +22,22 @@ import { HttpClientModule }    from '@angular/common/http';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    DasboardComponent
+    DasboardComponent,
+    ScansComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   providers: [],
   bootstrap: [AppComponent]

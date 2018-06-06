@@ -9,6 +9,16 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.xample.cordova"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.xample.cordova"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.xample.cordova"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.xample.cordova"
     }
   },
   "dependent_plugins": {}
