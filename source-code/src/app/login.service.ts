@@ -23,8 +23,9 @@ export class LoginService {
     //   os_type:1}
     return this.http.post(this.urlLoginPolan, data, httpOptions)
     .pipe(
+      map(data => data),
       tap(data => data),
-      catchError(this.handleError<any>('Thing tin login'))
+      // catchError(this.handleError<any>('Thing tin login'))
     );
   }
 

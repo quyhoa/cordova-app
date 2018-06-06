@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   private email = 'duc4@runsystem.net';
   private password = '123321';
   private os_type = 1;
+  private errors = '';
 
   onSubmit(formLogin): void {
     const body = formLogin.value;
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
         }
       },
       error =>{
-        alert('Thong tin tai khoan khong dung');
+
+        console.log(error.error.data);
       }
       );
   }
