@@ -10,4 +10,75 @@
 <body>
   <app-root></app-root>
 <script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script>
+    function scan(){
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+                if(!result.cancelled)
+                {
+                    if(result.format == "QR_CODE")
+                    {
+                        var value = result.text;
+                        var data = localStorage.getItem("LocalData");
+                        localStorage.setItem("LocalData", []);
+                        data = JSON.parse(data);
+                        // data[data.length] = [name, value];
+                        data[value] = {id:value, name:'ten san pham'};
+                        console.log(data);
+                        localStorage.setItem("LocalData", JSON.stringify(data));
+                        navigator.notification.confirm(
+                            "Tên sản phẩm: Sản phẩm gia dụng\n Số lượng: 30", // message
+                             onConfirm,            // callback to invoke with index of button pressed
+                            'Thông tin kiện hàng',           // title
+                            ['Tiếp tục','Hủy']     // buttonLabels
+                        );
+                        // navigator.notification.prompt("Please enter name of data",  function(input){
+                        //     var name = input.input1;
+                        //     var value = result.text;
+                        //     var data = localStorage.getItem("LocalData");
+                        //     data = JSON.parse(data);
+                        //     data[data.length] = [name, value];
+                        //     localStorage.setItem("LocalData", JSON.stringify(data));
+                        // });
+                    }
+                }
+            },
+            function (error) {
+                alert("Scanning failed: " + error);
+            }
+       );
+    }
+    $(document).on("pagebeforeshow", "#display", function() {
+        $("table#allTable tbody").empty();
+        var data = localStorage.getItem("LocalData");
+        data = JSON.parse(data);
+        console.log(data);
+        // var html = "";
+        // for(var count = 0; count < data.length; count++)
+        // {
+        //     html = html + "<tr><td>" + data[count][0] + "</td><td><a href='javascript:openURL(\"" + data[count][1] + "\")'>" + data[count][1] + "</a></td></tr>";
+        // }
+        $("table#allTable tbody").append(html).closest("table#allTable").table("refresh").trigger("create");
+    });
+    function openURL(url){
+        window.open(url, '_blank', 'location=yes');
+    }
+    function onConfirm(buttonIndex) {
+        var data = localStorage.getItem("LocalData");
+        if(data){
+             data = JSON.parse(data);
+        }
+        console.log(data);
+    }
+    //initialize
+    if(localStorage.getItem("LocalData") == null)
+    {
+        var data = [];
+        data = JSON.stringify(data);
+        localStorage.setItem("LocalData", data);
+    }
+</script>
 </html>

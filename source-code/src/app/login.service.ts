@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap, retry } from 'rxjs/operators';
 
 import { Login } from './login';
+import { LoginCarplus } from './login-carplus';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,6 +15,7 @@ const httpOptions = {
 })
 export class LoginService {
   private urlLoginPolan = 'http://103.18.6.158:1111/api/auth/login';
+  private urlLoginCarplus = 'http://cartplus-api.loc/api/user/login';
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +25,14 @@ export class LoginService {
       map(data => data),
       tap(data => data),
       // catchError(this.handleError())
+    );
+  }
+
+  loginCarplus (data:LoginCarplus) {
+    return this.http.post(this.urlLoginCarplus, data, httpOptions)
+    .pipe(
+      map(data => data),
+      tap(data => data),
     );
   }
 

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  private readData(data){
+  private readData(data){console.log(data);
     if(data.code == 200){
       let token = data.data.token;
       localStorage.setItem('token',token);

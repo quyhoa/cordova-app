@@ -225,7 +225,7 @@ module.exports = "/* DashboardComponent's private CSS styles */\r\n[class*='col-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "{{heroes | json}}\n<h3>Top Heroes</h3>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"  routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>\n  </a>\n  <app-messages></app-messages>\n</div>"
+module.exports = "<nav>\n    <a routerLink=\"/dashboard\">Dashboard</a><br>\n    <a routerLink=\"/scans\">Scan QR code</a><br>\n    <a routerLink=\"/heroes\">Heroes</a>\n    <a routerLink=\"/login\">Login</a>\n</nav>\n<h3>Top Heroes</h3>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"  routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>\n  </a>\n  <app-messages></app-messages>\n</div>"
 
 /***/ }),
 
@@ -667,9 +667,14 @@ var LoginService = /** @class */ (function () {
     function LoginService(http) {
         this.http = http;
         this.urlLoginPolan = 'http://103.18.6.158:1111/api/auth/login';
+        this.urlLoginCarplus = 'http://cartplus-api.loc/api/user/login';
     }
     LoginService.prototype.loginPolan = function (data) {
         return this.http.post(this.urlLoginPolan, data, httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) { return data; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (data) { return data; }));
+    };
+    LoginService.prototype.loginCarplus = function (data) {
+        return this.http.post(this.urlLoginCarplus, data, httpOptions)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) { return data; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (data) { return data; }));
     };
     LoginService = __decorate([
@@ -703,7 +708,7 @@ module.exports = "@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootst
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n<form (ngSubmit)=\"onSubmit(formLogin)\" #formLogin=\"ngForm\">\n<div class=\"form-group\">\n  <input [ngModel]=\"os_type\" name=\"os_type\" type=\"hidden\">\n  <input [ngModel]=\"email\" #txtEmail=\"ngModel\" name=\"email\" placeholder=\"Mail address\" class=\"form-control\" required>\n  <p *ngIf=\"txtEmail.touched && txtEmail.errors?.required\">\n    Email is not empty\n  </p>\n</div>\n<div class=\"form-group\">\n  <input [ngModel]=\"password\" #txtPassword=\"ngModel\" name=\"password\" placeholder=\"Password\" type=\"password\" class=\"form-control\" required>\n  <p *ngIf=\"txtPassword.touched && txtPassword.errors?.required\">\n    Password is not empty\n  </p>\n</div>\n  <button class=\"btn btn-success\" [disabled]=\"formLogin.invalid\">Submit</button>\n</form>\n</div>\n"
+module.exports = "<div class=\"container\">\n<form (ngSubmit)=\"onSubmit(formLogin)\" #formLogin=\"ngForm\">\n<div class=\"form-group\">\n  <input [ngModel]=\"os_type\" name=\"os_type\" type=\"hidden\">\n  <input [ngModel]=\"email\" #txtEmail=\"ngModel\" name=\"email\" placeholder=\"Mail address\" class=\"form-control\" required>\n  <p *ngIf=\"txtEmail.touched && txtEmail.errors?.required\">\n    Email is not empty\n  </p>\n</div>\n<div class=\"form-group\">\n  <input [ngModel]=\"password\" #txtPassword=\"ngModel\" name=\"password\" placeholder=\"Password\" type=\"password\" class=\"form-control\" required>\n  <p *ngIf=\"txtPassword.touched && txtPassword.errors?.required\">\n    Password is not empty\n  </p>\n</div>\n  <button class=\"btn btn-success\" [disabled]=\"formLogin.invalid\">Submit</button>\n</form>\n"
 
 /***/ }),
 
@@ -753,6 +758,7 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.readData = function (data) {
+        console.log(data);
         if (data.code == 200) {
             var token = data.data.token;
             localStorage.setItem('token', token);
@@ -904,7 +910,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  <a target=\"_blank\" (click)=\"scan()\" style=\"text-decoration: none\"><button>Scan</button></a>\n  <a target=\"_blank\" href=\"#display\" style=\"text-decoration: none\"><button>Display Scanned Data</button></a>\n</p>\n"
+module.exports = "<p>\n  <!-- <a target=\"_blank\" (click)=\"scan()\" style=\"text-decoration: none\"><button>Scan</button></a> -->\n  <a target=\"_blank\" href=\"javascript:scan();\" style=\"text-decoration: none\"><button>Scan</button></a>\n  <a target=\"_blank\" href=\"#display\" style=\"text-decoration: none\"><button>Display Scanned Data</button></a>\n</p>\n"
 
 /***/ }),
 
